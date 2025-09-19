@@ -19,7 +19,7 @@ export const goodsFromServer = [
 
 // Main App component
 export const App = () => {
-  const [goods, setGoods] = useState([]);
+  const [goods] = useState([]);
 
   return (
     <div className="section content">
