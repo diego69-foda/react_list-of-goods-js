@@ -22,33 +22,6 @@ export const App = () => {
   // Corrigido: Adicionado setGoods para permitir a atualização do estado
   const [goods, setGoods] = useState(goodsFromServer);
 
-  // Função para ordenar alfabeticamente
-  const handleSortAlpha = () => {
-    // Cria uma cópia do array e o ordena
-    const sortedGoods = [...goods].sort((a, b) => a.localeCompare(b));
-
-    setGoods(sortedGoods);
-  };
-
-  // Função para ordenar pelo comprimento da palavra
-  const handleSortByLength = () => {
-    const sortedGoods = [...goods].sort((a, b) => a.length - b.length);
-
-    setGoods(sortedGoods);
-  };
-
-  // Função para reverter a ordem da lista
-  const handleReverse = () => {
-    const reversedGoods = [...goods].reverse();
-
-    setGoods(reversedGoods);
-  };
-
-  // Função para resetar a lista para o estado inicial
-  const handleReset = () => {
-    setGoods(goodsFromServer);
-  };
-
   return (
     <div className="section content">
       <div className="buttons">
@@ -56,7 +29,11 @@ export const App = () => {
         <button
           type="button"
           className="button is-info is-light"
-          onClick={handleSortAlpha}
+          onClick={() => {
+            const sortedGoods = [...goods].sort((a, b) => a.localeCompare(b));
+
+            setGoods(sortedGoods);
+          }}
         >
           Sort alphabetically
         </button>
@@ -64,7 +41,11 @@ export const App = () => {
         <button
           type="button"
           className="button is-success is-light"
-          onClick={handleSortByLength}
+          onClick={() => {
+            const sortedGoods = [...goods].sort((a, b) => a.length - b.length);
+
+            setGoods(sortedGoods);
+          }}
         >
           Sort by length
         </button>
@@ -72,7 +53,11 @@ export const App = () => {
         <button
           type="button"
           className="button is-warning is-light"
-          onClick={handleReverse}
+          onClick={() => {
+            const reversedGoods = [...goods].reverse();
+
+            setGoods(reversedGoods);
+          }}
         >
           Reverse
         </button>
@@ -80,7 +65,7 @@ export const App = () => {
         <button
           type="button"
           className="button is-danger is-light"
-          onClick={handleReset}
+          onClick={() => setGoods(goodsFromServer)}
         >
           Reset
         </button>
