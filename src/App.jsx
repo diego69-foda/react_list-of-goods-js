@@ -17,37 +17,82 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-// Main App component
+// Componente principal App
 export const App = () => {
-  const [goods] = useState([]);
+  // Corrigido: Adicionado setGoods para permitir a atualização do estado
+  const [goods, setGoods] = useState(goodsFromServer);
+
+  // Função para ordenar alfabeticamente
+  const handleSortAlpha = () => {
+    // Cria uma cópia do array e o ordena
+    const sortedGoods = [...goods].sort((a, b) => a.localeCompare(b));
+
+    setGoods(sortedGoods);
+  };
+
+  // Função para ordenar pelo comprimento da palavra
+  const handleSortByLength = () => {
+    const sortedGoods = [...goods].sort((a, b) => a.length - b.length);
+
+    setGoods(sortedGoods);
+  };
+
+  // Função para reverter a ordem da lista
+  const handleReverse = () => {
+    const reversedGoods = [...goods].reverse();
+
+    setGoods(reversedGoods);
+  };
+
+  // Função para resetar a lista para o estado inicial
+  const handleReset = () => {
+    setGoods(goodsFromServer);
+  };
 
   return (
     <div className="section content">
       <div className="buttons">
-        {/* Button to sort items alphabetically */}
-        <button type="button" className="button is-info is-light">
+        {/* Adicionado o evento onClick para cada botão */}
+        <button
+          type="button"
+          className="button is-info is-light"
+          onClick={handleSortAlpha}
+        >
           Sort alphabetically
         </button>
 
-        {/* Button to sort items by their length */}
-        <button type="button" className="button is-success is-light">
+        <button
+          type="button"
+          className="button is-success is-light"
+          onClick={handleSortByLength}
+        >
           Sort by length
         </button>
 
-        {/* Button to reverse the order of items */}
-        <button type="button" className="button is-warning is-light">
+        <button
+          type="button"
+          className="button is-warning is-light"
+          onClick={handleReverse}
+        >
           Reverse
         </button>
 
-        {/* Button to reset the list to its initial state */}
-        <button type="button" className="button is-danger is-light">
+        <button
+          type="button"
+          className="button is-danger is-light"
+          onClick={handleReset}
+        >
           Reset
         </button>
       </div>
 
-      {/* Unordered list to display the goods */}
+      {/* Corrigido: Usando .map() para renderizar cada item em sua própria <li> */}
       <ul>
-        <li data-cy="Good">{goods}</li>
+        {goods.map(good => (
+          <li key={good} data-cy="Good">
+            {good}
+          </li>
+        ))}
       </ul>
     </div>
   );
